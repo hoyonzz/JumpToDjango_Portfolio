@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-md-4">
+            {% if user.profile.profile_imege %}
+                <img src="{{ user.profile.profile_image.url }}" class="img-fluid rounded-circle" alt="프로필 사진">
+            {% else %}
+                <div class="bg-secondary rounded-circle d-flex align-items-center justify-content-center" style="width:150px; height:150px;">
+                    <i class="fas fa-user fa-3x text-white"></i>
+                </div>
+            {% endif %}
+        </div>
+        <div class="col-md-8">
+            <h2>{{ user.username }} 님의 프로필</h2>
+            <p><strong>이름:</strong> {{ user.first_name }}{{ user.last_name }}</p>
+            <p><strong>이메일:</strong> {{ user.email }}</p>
+            <p><strong>생년월일:</strong> {{ user.profile.birth_date|default:"설정되지 않음" }}</p>
+            <p><strong>소개:</strong> {{ user.profile.bio|default:"소개글이 없습니다." }}</p>
+
+            <a href="{% url 'common:edit_profile' %}" class="btn btn-primary">프로필 편집</a>
+            <a href="{% url 'common:password_change' %}" class="btn btn-warning">비밀번호 변경</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
